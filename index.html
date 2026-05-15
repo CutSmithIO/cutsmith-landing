@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CutSmith — Post-production tools for editors who ship</title>
-  <meta name="description" content="The toolkit for subtitle conversion, XML translation, and batch operations. Built for professional editors working in Premiere, Final Cut Pro, and DaVinci Resolve." />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CutSmith — Move your CapCut timeline into Premiere</title>
+  <meta name="description" content="CutSmith converts CapCut projects into editable Premiere XML files. Your cuts, music timing, and edit structure — preserved. Built by an editor for editors.">
 
   <!-- Open Graph (for social sharing) -->
-  <meta property="og:title" content="CutSmith — Post-production tools for editors" />
-  <meta property="og:description" content="SRT ↔ FCPXML, batch processing, and XML conversion. Built for editors." />
-  <meta property="og:url" content="https://cutsmith.io" />
-  <meta property="og:type" content="website" />
-  <meta name="twitter:card" content="summary_large_image" />
+  <meta property="og:title" content="CutSmith — Move your CapCut timeline into Premiere">
+  <meta property="og:description" content="Convert CapCut projects into editable Premiere XML. No more rebuilding from scratch. Built by an editor with 13 years of experience.">
+  <meta property="og:url" content="https://cutsmith.io">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
 
-  <!-- Favicon (placeholder, replace later) -->
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✂️</text></svg>" />
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22&gt;&lt;text y=%22.9em%22 font-size=%2290%22&gt;%E2%9C%82%EF%B8%8F&lt;/text&gt;&lt;/svg&gt;">
 
-  <!-- Font: Inter from Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Font: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com/">
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -27,11 +27,15 @@
     :root {
       --bg: #0a0a0a;
       --bg-elevated: #141414;
+      --bg-soft: #111111;
       --text: #f5f5f5;
       --text-dim: #a1a1aa;
       --text-muted: #71717a;
       --accent: #ff5c1a;
+      --accent-soft: rgba(255, 92, 26, 0.1);
+      --accent-border: rgba(255, 92, 26, 0.25);
       --border: #262626;
+      --border-strong: #333333;
     }
 
     body {
@@ -66,9 +70,7 @@
     /* Main hero */
     main {
       flex: 1;
-      display: flex;
-      align-items: center;
-      padding: 48px 0;
+      padding: 48px 0 24px;
     }
     .hero {
       width: 100%;
@@ -79,8 +81,8 @@
       font-size: 13px;
       font-weight: 500;
       color: var(--accent);
-      background: rgba(255, 92, 26, 0.1);
-      border: 1px solid rgba(255, 92, 26, 0.25);
+      background: var(--accent-soft);
+      border: 1px solid var(--accent-border);
       border-radius: 999px;
       margin-bottom: 24px;
     }
@@ -95,6 +97,12 @@
     .subtitle {
       font-size: 18px;
       color: var(--text-dim);
+      max-width: 560px;
+      margin-bottom: 16px;
+    }
+    .subtitle-secondary {
+      font-size: 15px;
+      color: var(--text-muted);
       max-width: 560px;
       margin-bottom: 40px;
     }
@@ -152,38 +160,173 @@
       max-width: 480px;
     }
 
-    /* Features list */
-    .features {
-      margin-top: 64px;
-      padding-top: 40px;
-      border-top: 1px solid var(--border);
-    }
-    .features-label {
+    /* Section labels */
+    .section-label {
       font-size: 13px;
       font-weight: 600;
       color: var(--text-muted);
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
-    .feature-list {
+
+    /* The problem section */
+    .problem {
+      margin-top: 72px;
+      padding-top: 40px;
+      border-top: 1px solid var(--border);
+    }
+    .problem h2 {
+      font-size: 24px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 28px;
+      line-height: 1.3;
+    }
+    .problem-grid {
+      display: grid;
+      gap: 20px;
+    }
+    .problem-card {
+      padding: 20px 22px;
+      background: var(--bg-soft);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+    .problem-card h3 {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+    .problem-card p {
+      font-size: 14px;
+      color: var(--text-dim);
+      line-height: 1.6;
+    }
+
+    /* Roadmap */
+    .roadmap {
+      margin-top: 64px;
+      padding-top: 40px;
+      border-top: 1px solid var(--border);
+    }
+    .flagship {
+      padding: 24px 24px 22px;
+      background: linear-gradient(135deg, var(--accent-soft) 0%, rgba(255, 92, 26, 0.03) 100%);
+      border: 1px solid var(--accent-border);
+      border-radius: 12px;
+      margin-bottom: 28px;
+    }
+    .flagship-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .flagship h3 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .flagship p {
+      font-size: 14px;
+      color: var(--text-dim);
+    }
+    .roadmap-next-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+    .roadmap-list {
+      list-style: none;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 16px;
-      list-style: none;
+      gap: 10px;
     }
-    .feature-list li {
+    .roadmap-list li {
       display: flex;
       align-items: flex-start;
       gap: 10px;
-      font-size: 15px;
+      font-size: 14px;
       color: var(--text-dim);
     }
-    .feature-list li::before {
+    .roadmap-list li::before {
       content: "→";
-      color: var(--accent);
-      font-weight: 600;
+      color: var(--text-muted);
+      font-weight: 500;
       flex-shrink: 0;
+    }
+
+    /* Founder section */
+    .founder {
+      margin-top: 64px;
+      padding: 32px 28px;
+      background: var(--bg-soft);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+    }
+    .founder p {
+      font-size: 15px;
+      color: var(--text-dim);
+      margin-bottom: 14px;
+      line-height: 1.7;
+    }
+    .founder p:last-of-type { margin-bottom: 0; }
+    .founder .signature {
+      margin-top: 22px;
+      padding-top: 22px;
+      border-top: 1px solid var(--border);
+      font-size: 14px;
+      color: var(--text);
+      font-weight: 500;
+    }
+    .signature-meta {
+      display: block;
+      margin-top: 4px;
+      font-size: 13px;
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+    .signature-meta a {
+      color: var(--text-dim);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border-strong);
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .signature-meta a:hover {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    /* Final CTA */
+    .final-cta {
+      margin-top: 64px;
+      padding-top: 40px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+    .final-cta h2 {
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 14px;
+    }
+    .final-cta p {
+      font-size: 15px;
+      color: var(--text-dim);
+      margin-bottom: 28px;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .final-cta .waitlist {
+      margin-left: auto;
+      margin-right: auto;
     }
 
     /* Footer */
@@ -201,16 +344,20 @@
       font-size: 14px;
       color: var(--text-muted);
     }
+    .footer-content a {
+      color: var(--text-dim);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .footer-content a:hover {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
     .footer-links {
       display: flex;
       gap: 20px;
     }
-    .footer-links a {
-      color: var(--text-muted);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    .footer-links a:hover { color: var(--text); }
   </style>
 </head>
 <body>
@@ -222,46 +369,112 @@
 
     <main>
       <div class="hero">
-        <span class="badge">Coming soon</span>
+        <span class="badge">Building in public · Early access opening soon</span>
         <h1>
-          Post-production tools<br />
-          for editors who <span class="accent">ship</span>.
+          Move your CapCut timeline<br>
+          into <span class="accent">Premiere</span>.
         </h1>
         <p class="subtitle">
-          The toolkit for subtitle conversion, XML translation, and batch operations.
-          Built for professional editors working in Premiere, Final Cut Pro, and DaVinci Resolve.
+          CutSmith converts CapCut projects into editable Premiere XML files. Your cuts, music timing, and edit structure — preserved.
+        </p>
+        <p class="subtitle-secondary">
+          Built by an editor with 13 years of professional experience, for editors who use both tools on the same project.
         </p>
 
         <form class="waitlist" id="waitlistForm" action="https://formspree.io/f/xlgazyok" method="POST">
-          <input type="email" name="email" placeholder="you@example.com" required />
-          <button type="submit">Join waitlist</button>
+          <input type="email" name="email" placeholder="you@example.com" required="">
+          <button type="submit">Get early access</button>
         </form>
-        <p class="form-note">Get early access + a launch discount. No spam, ever.</p>
+        <p class="form-note">I'll send one email when alpha opens. No newsletter. No spam. I reply to every email personally.</p>
         <div class="form-success" id="formSuccess">
-          ✓ Thanks — you're on the list. We'll be in touch soon.
+          ✓ Thanks — you're on the list. I'll be in touch when alpha opens.
         </div>
 
-        <section class="features">
-          <p class="features-label">What we're building</p>
-          <ul class="feature-list">
+        <!-- The Problem -->
+        <section class="problem">
+          <p class="section-label">The Problem</p>
+          <h2>If you cut in CapCut and finish in Premiere, you've hit this wall.</h2>
+          <div class="problem-grid">
+            <div class="problem-card">
+              <h3>The export-and-flatten trap</h3>
+              <p>You export your CapCut rough cut as MP4, drop it into Premiere, and now you have one clip. Every edit is baked in. Need to fix one cut? Back to CapCut. Re-export. Lose your Premiere work.</p>
+            </div>
+            <div class="problem-card">
+              <h3>The rebuild-from-scratch tax</h3>
+              <p>Open Premiere, use your CapCut export as a "reference," manually rebuild every cut. 2-4 hours per project. You're copying your own work.</p>
+            </div>
+            <div class="problem-card">
+              <h3>The walled garden problem</h3>
+              <p>Logic exports stems to Pro Tools. Figma exports to Sketch. Notion exports to Markdown. CapCut exports to nothing — and Adobe has no interest in importing it.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Roadmap -->
+        <section class="roadmap">
+          <p class="section-label">The Roadmap</p>
+          <div class="flagship">
+            <span class="flagship-tag">🎯 Flagship · In development</span>
+            <h3>CapCut → Premiere XML conversion</h3>
+            <p>Convert your CapCut timeline into a fully editable Premiere XML. Every cut, every transition, every timing decision — preserved and editable. Color grade and finish where Premiere shines.</p>
+          </div>
+
+          <p class="roadmap-next-label">Coming next:</p>
+          <ul class="roadmap-list">
+            <li>CapCut → DaVinci Resolve</li>
+            <li>CapCut → Final Cut Pro</li>
             <li>SRT ↔ FCPXML conversion</li>
-            <li>Premiere XML → FCPXML / Resolve</li>
-            <li>FCPXML version up/downgrade</li>
-            <li>Batch transcoding & watermarking</li>
+            <li>Batch transcoding &amp; watermarking</li>
             <li>Subtitle burn-in at scale</li>
-            <li>AI-powered captioning (Whisper)</li>
+            <li>AI captioning (Whisper)</li>
           </ul>
+        </section>
+
+        <!-- Founder Story -->
+        <section class="founder">
+          <p class="section-label">Why I'm building this</p>
+          <p>
+            I've been editing professionally for 20 years. Documentaries, YouTube content for creators you've probably watched, corporate work — I've cut all of it.
+          </p>
+          <p>
+            Two years ago I started using CapCut for rough cuts. The speed is undeniable. But every time I needed Premiere-grade color or audio for client delivery, I'd hit the same wall: rebuild the entire edit. From scratch. Manually.
+          </p>
+          <p>
+            I waited for someone to fix it. Adobe wouldn't. ByteDance wouldn't. So in 2026, I started building CutSmith myself.
+          </p>
+          <p>
+            I'm not a venture-backed founder. I'm an editor who got tired of doing the same work twice. If that resonates — get on the list. I'd love to have you with me.
+          </p>
+          <p class="signature">
+            — Ethan Mai
+            <span class="signature-meta">
+              Follow the build on <a href="https://youtube.com/@CutSmithIO" target="_blank" rel="noopener">YouTube</a> · <a href="https://twitter.com/CutSmithIO" target="_blank" rel="noopener">Twitter</a>
+            </span>
+          </p>
+        </section>
+
+        <!-- Final CTA -->
+        <section class="final-cta">
+          <h2>Get notified when CutSmith ships.</h2>
+          <p>Early access opens to subscribers first. Founder-friendly pricing for everyone who joins before launch.</p>
+          <form class="waitlist" id="waitlistForm2" action="https://formspree.io/f/xlgazyok" method="POST">
+            <input type="email" name="email" placeholder="you@example.com" required="">
+            <button type="submit">Get early access</button>
+          </form>
+          <p class="form-note" style="margin-top: 12px;">No spam. Maybe 1 email a month. Unsubscribe anytime.</p>
+          <div class="form-success" id="formSuccess2">
+            ✓ Thanks — you're on the list. I'll be in touch when alpha opens.
+          </div>
         </section>
       </div>
     </main>
 
     <footer>
       <div class="footer-content">
-        <div>© 2026 CutSmith</div>
+        <div>Built solo by <a href="https://twitter.com/EthanMaiBuilds" target="_blank" rel="noopener">@EthanMaiBuilds</a> · CutSmith © 2026</div>
         <nav class="footer-links">
-          <a href="https://twitter.com/CutSmithIO" target="_blank" rel="noopener">Twitter</a>
-          <a href="https://instagram.com/CutSmithIO" target="_blank" rel="noopener">Instagram</a>
           <a href="https://youtube.com/@CutSmithIO" target="_blank" rel="noopener">YouTube</a>
+          <a href="https://twitter.com/CutSmithIO" target="_blank" rel="noopener">Twitter</a>
           <a href="mailto:hello@cutsmith.io">Email</a>
         </nav>
       </div>
@@ -269,43 +482,59 @@
   </div>
 
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XBGRYJ2BPW"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-XBGRYJ2BPW');
-</script>
-
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XBGRYJ2BPW"></script>
   <script>
-    // Intercept form submit so we can show inline success without leaving the page
-    const form = document.getElementById('waitlistForm');
-    const success = document.getElementById('formSuccess');
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const formData = new FormData(form);
-
-      try {
-        const response = await fetch(form.action, {
-          method: 'POST',
-          body: formData,
-          headers: { 'Accept': 'application/json' }
-        });
-
-        if (response.ok) {
-          form.style.display = 'none';
-          document.querySelector('.form-note').style.display = 'none';
-          success.style.display = 'block';
-        } else {
-          alert('Something went wrong. Please try again or email hello@cutsmith.io');
-        }
-      } catch (err) {
-        alert('Network error. Please try again.');
-      }
-    });
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XBGRYJ2BPW');
   </script>
 
+  <script>
+    // Handle both waitlist forms with the same logic
+    function setupForm(formId, successId) {
+      const form = document.getElementById(formId);
+      const success = document.getElementById(successId);
+      if (!form) return;
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(form);
+
+        try {
+          const response = await fetch(form.action, {
+            method: 'POST',
+            body: formData,
+            headers: { 'Accept': 'application/json' }
+          });
+
+          if (response.ok) {
+            form.style.display = 'none';
+            // Hide the form-note that immediately follows this form
+            const note = form.nextElementSibling;
+            if (note && note.classList.contains('form-note')) {
+              note.style.display = 'none';
+            }
+            success.style.display = 'block';
+
+            // Track conversion in GA
+            if (typeof gtag === 'function') {
+              gtag('event', 'waitlist_signup', {
+                'event_category': 'engagement',
+                'event_label': formId
+              });
+            }
+          } else {
+            alert('Something went wrong. Please try again or email hello@cutsmith.io');
+          }
+        } catch (err) {
+          alert('Network error. Please try again.');
+        }
+      });
+    }
+
+    setupForm('waitlistForm', 'formSuccess');
+    setupForm('waitlistForm2', 'formSuccess2');
+  </script>
 </body>
 </html>
