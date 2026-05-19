@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to set up a bilingual subtitle workflow in Premiere Pro — CutSmith</title>
+<meta name="description" content="Getting clean EN/ZH subtitles into Premiere Pro without spending half a day reformatting — what works, what doesn't, and where local generation fits in.">
+<meta name="author" content="CutSmith">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="How to set up a bilingual subtitle workflow in Premiere Pro">
+<meta property="og:description" content="Getting clean EN/ZH subtitles into Premiere without spending half a day reformatting — what works, what doesn't, and where local generation fits in.">
+<meta property="og:url" content="https://cutsmith.io/blog/bilingual-subtitles-for-premiere.html">
+<meta property="og:site_name" content="CutSmith">
+<meta property="article:published_time" content="2026-05-19">
+<meta property="article:author" content="CutSmith">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="How to set up a bilingual subtitle workflow in Premiere Pro">
+<meta name="twitter:description" content="Getting clean EN/ZH subtitles into Premiere without spending half a day reformatting.">
+
+<link rel="canonical" href="https://cutsmith.io/blog/bilingual-subtitles-for-premiere.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:        #1c1c1e;
+  --bg2:       #242426;
+  --bg3:       #2c2c2e;
+  --border:    #3a3a3c;
+  --border2:   #48484a;
+  --text:      #e5e5ea;
+  --text2:     #98989f;
+  --text3:     #636366;
+  --accent:    #9b8cff;
+  --accent2:   #7b6cdf;
+  --accent-bg: rgba(155,140,255,0.10);
+  --green:     #30d158;
+  --orange:    #ff9f0a;
+  --f-sans:    'IBM Plex Sans', sans-serif;
+  --f-mono:    'IBM Plex Mono', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 14px; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--f-sans);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+a { color: inherit; text-decoration: none; }
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg2); }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+/* ── NAV ── */
+nav {
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(12px);
+}
+
+.nav-logo {
+  font-family: var(--f-mono);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.nav-logo .dot { color: var(--accent); }
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.nav-link {
+  font-size: 13px;
+  color: var(--text2);
+  transition: color 0.15s;
+}
+
+.nav-link:hover { color: var(--text); }
+
+/* ── ARTICLE LAYOUT ── */
+main {
+  flex: 1;
+  max-width: 680px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 64px 40px 96px;
+}
+
+/* ── ARTICLE HEADER ── */
+.article-header {
+  margin-bottom: 48px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--border);
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--f-mono);
+  font-size: 11px;
+  color: var(--text3);
+  margin-bottom: 28px;
+  transition: color 0.15s;
+  text-decoration: none;
+}
+
+.back-link:hover { color: var(--text2); }
+
+.back-link::before {
+  content: '←';
+  font-size: 12px;
+}
+
+.article-tag {
+  font-family: var(--f-mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  background: var(--accent-bg);
+  border: 1px solid rgba(155,140,255,0.2);
+  padding: 2px 8px;
+  border-radius: 2px;
+  display: inline-block;
+  margin-bottom: 16px;
+}
+
+h1 {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+  margin-bottom: 16px;
+}
+
+.article-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.meta-item {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  color: var(--text3);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.meta-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--border2);
+}
+
+/* ── ARTICLE BODY ── */
+.article-body {
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--text2);
+}
+
+.article-body p {
+  margin-bottom: 24px;
+}
+
+.article-body p:last-child { margin-bottom: 0; }
+
+.article-body h2 {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: -0.01em;
+  margin: 40px 0 14px;
+  line-height: 1.3;
+}
+
+.article-body h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  margin: 28px 0 10px;
+  letter-spacing: 0;
+}
+
+.article-body strong {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.article-body em {
+  color: var(--text2);
+  font-style: italic;
+}
+
+.article-body a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.15s;
+}
+
+.article-body a:hover { color: #b8adff; }
+
+.article-body ul,
+.article-body ol {
+  padding-left: 20px;
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.article-body li {
+  line-height: 1.75;
+}
+
+.article-body li::marker {
+  color: var(--text3);
+}
+
+/* inline code */
+.article-body code {
+  font-family: var(--f-mono);
+  font-size: 12px;
+  color: var(--accent);
+  background: var(--accent-bg);
+  border: 1px solid rgba(155,140,255,0.15);
+  padding: 1px 6px;
+  border-radius: 3px;
+}
+
+/* code block */
+.article-body pre {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 18px 20px;
+  margin: 24px 0;
+  overflow-x: auto;
+}
+
+.article-body pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 12px;
+  color: var(--text2);
+  line-height: 1.75;
+}
+
+/* callout / note box */
+.note {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  padding: 16px 20px;
+  border-radius: 0 4px 4px 0;
+  margin: 28px 0;
+  font-size: 13px;
+  color: var(--text2);
+  line-height: 1.7;
+}
+
+.note strong { color: var(--text); }
+
+/* divider */
+.article-body hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 40px 0;
+}
+
+/* ── ARTICLE FOOTER ── */
+.article-footer {
+  margin-top: 56px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.article-footer-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--f-mono);
+  font-size: 11px;
+  color: var(--text3);
+  transition: color 0.15s;
+}
+
+.article-footer-back:hover { color: var(--text2); }
+.article-footer-back::before { content: '←'; }
+
+.article-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--f-mono);
+  font-size: 12px;
+  padding: 9px 18px;
+  background: var(--accent2);
+  color: #fff;
+  border-radius: 4px;
+  transition: background 0.15s;
+  text-decoration: none;
+}
+
+.article-cta:hover { background: var(--accent); }
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 28px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--bg2);
+}
+
+.footer-copy {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  color: var(--text3);
+  letter-spacing: 0.04em;
+}
+
+.footer-links {
+  display: flex;
+  gap: 20px;
+}
+
+.footer-links a {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  color: var(--text3);
+  transition: color 0.15s;
+}
+
+.footer-links a:hover { color: var(--text2); }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-logo">CutSmith<span class="dot">.</span>IO</a>
+  <div class="nav-right">
+    <a href="../index.html#features" class="nav-link">Features</a>
+    <a href="../index.html#download" class="nav-link">Download</a>
+    <a href="index.html" class="nav-link">Blog</a>
+    <a href="https://github.com/CutSmithIO/cutsmith-subtitle-studio" target="_blank" rel="noopener" class="nav-link">GitHub</a>
+  </div>
+</nav>
+
+<main>
+  <article>
+    <div class="article-header">
+      <a href="index.html" class="back-link">All articles</a>
+      <div class="article-tag">PREMIERE PRO</div>
+      <h1>How to set up a bilingual subtitle workflow in Premiere Pro</h1>
+      <div class="article-meta-row">
+        <span class="meta-item">May 19, 2026</span>
+        <span class="meta-item"><span class="meta-dot"></span>8 min read</span>
+        <span class="meta-item"><span class="meta-dot"></span>CutSmith</span>
+      </div>
+    </div>
+
+    <div class="article-body">
+
+      <p>If you've ever tried to get a clean bilingual EN/ZH subtitle track into Premiere Pro from a long-form interview, you already know the friction. Premiere's built-in auto-caption is useful for English, but the moment you're dealing with mixed-language rushes — a common reality in variety, documentary, and corporate production — the workflow falls apart quickly.</p>
+
+      <p>This article covers what a bilingual subtitle workflow actually looks like in practice, where the common failure points are, and how local generation tools like CutSmith fit into the pipeline.</p>
+
+      <h2>What "bilingual subtitles" means in practice</h2>
+
+      <p>Before going into tooling, it's worth being specific about what you're actually trying to produce. There are several distinct outputs that get called "bilingual subtitles":</p>
+
+      <ul>
+        <li><strong>Simultaneous display</strong> — both EN and ZH shown at the same time, typically EN above ZH or vice versa. Common for broadcast and streaming where both audiences watch the same cut.</li>
+        <li><strong>Separate tracks</strong> — one SRT for EN, one for ZH, imported into Premiere as separate caption tracks. Used when you need to toggle or deliver independently.</li>
+        <li><strong>Translation subtitles</strong> — the source language on screen with a translation below. Often used in documentary when the speaker's language differs from the delivery market.</li>
+      </ul>
+
+      <p>For most editors working in Chinese-language production with English deliverables, you're probably dealing with <strong>ZH/EN mixed audio</strong> — speakers switching languages mid-interview — rather than a single-language source that needs translation. That distinction matters a lot for tooling.</p>
+
+      <h2>The Premiere Pro caption workflow, and where it breaks</h2>
+
+      <p>Premiere Pro CC 2022 and later includes a built-in Speech to Text tool under the Captions panel. For English-only content with a single speaker and clean audio, it works reasonably well. For bilingual or mixed-language content, the gaps are significant:</p>
+
+      <ul>
+        <li>Language switching mid-sentence is typically mishandled — Premiere locks to one language per transcription pass.</li>
+        <li>Chinese transcription quality in Premiere's built-in engine is notably weaker than English.</li>
+        <li>There is no native "bilingual" mode — generating two tracks requires running the process twice with manual re-timing.</li>
+        <li>Edits to the caption track in Premiere are not round-trip compatible with SRT if you need to re-export for other platforms.</li>
+      </ul>
+
+      <div class="note">
+        <strong>Note on audio quality:</strong> All speech-to-text tools — including Whisper — perform significantly better on clean, close-mic audio than on room audio or heavily processed tracks. If you're working with noisy rushes, budget time for manual review regardless of which tool you use.
+      </div>
+
+      <h2>A practical bilingual pipeline for Premiere</h2>
+
+      <p>The workflow that tends to create the least friction separates the transcription step from the editing environment entirely. Rather than relying on Premiere's built-in caption engine for the generation step, you generate subtitles externally and import the finished SRT.</p>
+
+      <p>The basic flow looks like this:</p>
+
+      <ol>
+        <li>Export a reference audio file (AAC or WAV) from your Premiere sequence — or point directly at the source media file.</li>
+        <li>Run the audio through a local transcription tool (CutSmith, or Whisper CLI directly) with bilingual output enabled.</li>
+        <li>Review and edit the generated SRT — fix segment breaks, adjust timecodes where needed, handle any code-switching errors.</li>
+        <li>Import the finished SRT into Premiere via <code>File → Import</code>, then use <strong>Captions → Create Captions from Transcript</strong> or directly via the Captions track.</li>
+        <li>Style the caption track as needed using Premiere's Caption Styles panel.</li>
+      </ol>
+
+      <p>For separate EN and ZH tracks, you repeat steps 2–4 twice — once per language — and import both SRTs as separate caption tracks. Premiere handles multiple caption tracks cleanly, and you can toggle visibility per track during export.</p>
+
+      <h2>Importing SRT into Premiere Pro: what to watch for</h2>
+
+      <p>Premiere's SRT import has a few known quirks worth knowing before you spend time on a clean export:</p>
+
+      <ul>
+        <li><strong>Encoding matters.</strong> SRT files must be UTF-8 without BOM. Files exported from some Windows applications include a BOM header (<code>EF BB BF</code> at byte 0) that causes import errors or garbled Chinese characters. Check with a hex editor or use a tool that explicitly writes UTF-8 without BOM.</li>
+        <li><strong>Timecode format.</strong> Premiere expects <code>HH:MM:SS,mmm</code> — comma as millisecond separator. Some tools export with a period. This silently breaks timecode parsing on import.</li>
+        <li><strong>Sequence start timecode.</strong> If your sequence starts at <code>10:00:00:00</code> (standard broadcast), subtitle timecodes need to be offset by 10 hours. A subtitle at <code>00:02:14,000</code> in your SRT file maps to <code>10:02:14;00</code> on the timeline — most editors get burned by this once.</li>
+        <li><strong>Chinese character display.</strong> Premiere CC handles UTF-8 Chinese correctly in caption display, but legacy project settings or older sequences can cause rendering issues. Test with a 30-second section first before committing to a full pass.</li>
+      </ul>
+
+      <p>A well-formed SRT block looks like this:</p>
+
+<pre><code>1
+00:02:14,080 --> 00:02:17,520
+We ended up rebuilding the subtitle workflow entirely.
+最后我们把整个字幕流程重新做了一遍。
+
+2
+00:02:17,900 --> 00:02:21,140
+Most of that was just getting the subtitles right.
+大部分时间都花在字幕校对上。</code></pre>
+
+      <p>Both language lines in the same cue block render as stacked text in Premiere's caption display. If you need separate EN and ZH tracks, export as two distinct SRT files and import each independently.</p>
+
+      <h2>Handling mixed-language audio</h2>
+
+      <p>For ZH/EN mixed-language content — the harder case — the current practical ceiling with Whisper-based tools is detecting the dominant language per segment. True word-level language identification within a single sentence is not reliable with current models.</p>
+
+      <p>In practice, what works:</p>
+
+      <ul>
+        <li>Segments where a speaker completes a thought in one language are transcribed accurately.</li>
+        <li>Segments where a speaker switches language mid-clause often require manual correction.</li>
+        <li>Setting the transcription model to the dominant language of the interview (usually ZH for Chinese-market production) and then correcting English segments manually is faster than the alternative.</li>
+      </ul>
+
+      <p>CutSmith's bilingual mode runs two model passes — one ZH, one EN — and merges the output by confidence score per segment. Results vary depending on audio quality and switching frequency, but it tends to produce better starting material than a single-language pass for interviews where both languages appear regularly.</p>
+
+      <h2>Keeping subtitles maintainable after import</h2>
+
+      <p>One thing worth establishing early: once you style a caption track in Premiere and start making manual edits inside the Captions panel, round-tripping back to SRT becomes complicated. Premiere's caption export preserves text but may not preserve all styling.</p>
+
+      <p>For productions where the subtitle file will be reused across multiple deliverables — YouTube, streaming, broadcast — it's worth keeping the source SRT as the master and re-importing into each project, rather than treating the Premiere caption track as the source of truth.</p>
+
+      <hr>
+
+      <p>The underlying pattern here isn't specific to CutSmith — it applies to any local transcription tool. Separate generation from NLE. Keep the SRT as the master. Import clean, review quickly, and don't rely on in-NLE speech-to-text for anything more complex than English-only single-speaker content.</p>
+
+      <p>If you're working with mixed-language rushes regularly and want to try the bilingual workflow described here, CutSmith handles the generation and Smart Repair steps. The alpha is available as a free download for macOS.</p>
+
+    </div>
+
+    <div class="article-footer">
+      <a href="index.html" class="article-footer-back">Back to blog</a>
+      <a href="https://github.com/CutSmithIO/cutsmith-subtitle-studio/releases/download/v0.4.0-alpha/CutSmith-Subtitle-Studio-v0.4.0-alpha-arm64.dmg" class="article-cta">Download v0.4.0-alpha</a>
+    </div>
+
+    <div style="margin-top:32px;padding:16px 20px;background:var(--bg2);border:1px solid var(--border);border-radius:3px;">
+      <div style="font-family:var(--f-mono);font-size:9px;color:var(--text3);letter-spacing:0.1em;margin-bottom:10px;">RELATED</div>
+      <a href="capcut-subtitle-workflow.html" style="font-size:13px;color:var(--text2);text-decoration:none;display:block;line-height:1.5;transition:color 0.15s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text2)'">
+        CapCut subtitle workflows for long-form content: what the built-in tools miss →
+      </a>
+    </div>
+  </article>
+</main>
+
+<footer>
+  <div class="footer-copy">© 2026 CUTSMITH.IO</div>
+  <div class="footer-links">
+    <a href="../index.html">Home</a>
+    <a href="index.html">Blog</a>
+    <a href="https://github.com/CutSmithIO/cutsmith-subtitle-studio" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://www.reddit.com/user/ethanmaibuilds/" target="_blank" rel="noopener">Reddit</a>
+    <a href="mailto:hello@cutsmith.io">Email</a>
+    <a href="https://github.com/CutSmithIO" target="_blank" rel="noopener" style="color:var(--text3)">Organization</a>
+  </div>
+</footer>
+
+</body>
+</html>
