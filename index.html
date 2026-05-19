@@ -3,7 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CutSmith Subtitle Studio — Subtitle Workflows for Editors</title>
+<title>CutSmith — Local workflows for post-production</title>
+<meta name="description" content="Local AI-assisted workflows for editors and post-production teams handling subtitles, timelines, interviews, and long-form content.">
+<meta name="author" content="CutSmith">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="CutSmith — Local workflows for post-production">
+<meta property="og:description" content="Local AI-assisted workflows for editors handling subtitles, timelines, interviews, and long-form editorial workflows.">
+<meta property="og:url" content="https://cutsmith.io/">
+<meta property="og:site_name" content="CutSmith">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CutSmith — Local workflows for post-production">
+<meta name="twitter:description" content="Local AI-assisted workflows for editors handling subtitles, timelines, interviews, and long-form editorial workflows.">
+
+<link rel="canonical" href="https://cutsmith.io/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
@@ -1315,6 +1331,336 @@ footer {
 }
 
 .inline-submit:hover { background: var(--accent); }
+
+/* ═══════════════════════════════════════════
+   MOBILE RESPONSIVE — max-width: 768px
+   Philosophy: focused product presentation,
+   not a shrunken desktop.
+═══════════════════════════════════════════ */
+@media (max-width: 768px) {
+
+  /* ── NAV ── */
+  nav {
+    padding: 0 20px;
+  }
+
+  .nav-links { display: none; }
+
+  .nav-right { gap: 8px; }
+
+  .btn-sm {
+    font-size: 11px;
+    padding: 5px 11px;
+  }
+
+  /* ── HERO — vertical stack ── */
+  .hero {
+    min-height: auto;
+    padding-top: 44px;
+  }
+
+  .hero-inner {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding: 40px 20px 0;
+  }
+
+  .hero-copy {
+    order: 1;
+    padding-bottom: 32px;
+  }
+
+  .hero-platform-row {
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 20px;
+  }
+
+  .platform-pill { font-size: 9px; padding: 2px 7px; }
+
+  .hero-h1 {
+    font-size: 36px;
+    line-height: 1.2;
+    margin-bottom: 14px;
+  }
+
+  .hero-sub {
+    font-size: 15px;
+    line-height: 1.65;
+    margin-bottom: 24px;
+    max-width: 100%;
+  }
+
+  .hero-workflow-strip {
+    font-size: 10px;
+    margin-bottom: 24px;
+    line-height: 1.9;
+  }
+
+  .hwstrip-div { display: block; margin: 0; opacity: 0; height: 0; }
+
+  /* CTA buttons — full-width primary, ghost stays inline */
+  .hero-cta-block { width: 100%; }
+
+  .hero-cta-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .btn-primary {
+    justify-content: center;
+    padding: 13px 20px;
+    font-size: 13px;
+    min-height: 44px;
+  }
+
+  .btn-secondary {
+    text-align: center;
+    padding: 12px 20px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .btn-platform-label {
+    font-size: 10px;
+    margin-top: 6px;
+    padding-left: 0;
+    text-align: center;
+  }
+
+  .hero-meta {
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-top: 24px;
+    padding-top: 20px;
+  }
+
+  .hero-meta-item { font-size: 10px; }
+
+  /* ── HERO UI — cropped mobile view ── */
+  /* Show editor UI below copy, cropped to subtitle list region */
+  .editor-ui {
+    order: 2;
+    border-radius: 6px 6px 0 0;
+    border-bottom: none;
+    margin: 0 -20px; /* bleed to edges */
+    animation: none;
+    box-shadow: 0 -8px 32px rgba(0,0,0,0.4);
+  }
+
+  /* Crop: hide right sidebar entirely on mobile */
+  .editor-layout {
+    grid-template-columns: 1fr;
+    height: auto;
+    max-height: 340px;
+    overflow: hidden;
+  }
+
+  .right-sidebar { display: none; }
+
+  /* Show only waveform + 4 subtitle rows */
+  .sub-list {
+    overflow: hidden;
+    max-height: 240px;
+  }
+
+  /* Hide toolbar buttons that wrap — show label only */
+  .toolbar-btn { display: none; }
+  .toolbar-btn.active-btn:first-of-type { display: flex; }
+
+  /* Status bar — trim to two items on mobile */
+  .editor-statusbar {
+    font-size: 9px;
+    padding: 0 10px;
+    gap: 10px;
+  }
+
+  .editor-statusbar .sb-item:last-child { display: none; }
+
+  /* ── SECTIONS ── */
+  .section {
+    padding: 56px 20px;
+  }
+
+  .section-full .section-inner { padding: 0 20px; }
+  .section-full { padding: 56px 0; }
+
+  .section-h2 { font-size: 20px; }
+  .section-sub { font-size: 13px; margin-bottom: 36px; }
+
+  /* ── FEATURES — single column ── */
+  .features-grid {
+    grid-template-columns: 1fr;
+    gap: 1px;
+  }
+
+  .feat-card {
+    padding: 22px 20px 24px;
+  }
+
+  .feat-icon-row { margin-bottom: 12px; }
+  .feat-name { font-size: 14px; margin-bottom: 6px; }
+  .feat-desc { font-size: 13px; }
+
+  /* Credibility strip */
+  .section .reveal + div,
+  section > div[style*="margin-top:36px"] {
+    flex-direction: column;
+    gap: 4px;
+    padding: 12px 14px;
+    margin-top: 24px;
+  }
+
+  /* ── WORKFLOW STEPS — scrollable horizontal ── */
+  .workflow-visual {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 12px;
+    margin-top: 28px;
+    /* scrollbar hidden on mobile */
+    scrollbar-width: none;
+  }
+  .workflow-visual::-webkit-scrollbar { display: none; }
+
+  .wf-step { min-width: 120px; }
+  .wf-box { padding: 12px; }
+  .wf-step-name { font-size: 11px; }
+
+  /* ── FAQ ── */
+  .faq-grid {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
+
+  .faq-list { max-width: 100%; }
+  .faq-q { font-size: 14px; padding: 16px 0; }
+
+  /* ── DOWNLOAD ── */
+  .download-section { padding: 48px 20px; }
+
+  .download-inner {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .download-h2 { font-size: 20px; }
+
+  .download-actions {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .download-btn {
+    justify-content: center;
+    min-height: 44px;
+    font-size: 12px;
+  }
+
+  .dl-specs { gap: 8px; }
+
+  .dl-spec-row { padding: 10px 12px; }
+  .dl-spec-text { font-size: 12px; }
+  .dl-spec-text strong { font-size: 12px; }
+
+  /* inline email form */
+  .inline-form { max-width: 100%; }
+
+  /* ── REAL APP SCREENSHOT ── */
+  /* Horizontal scroll crop — show left portion of screenshot */
+  .real-app-screenshot-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    border-radius: 6px 6px 0 0;
+    border-bottom: none;
+  }
+  .real-app-screenshot-wrap::-webkit-scrollbar { display: none; }
+
+  .real-app-screenshot-wrap img {
+    width: auto !important;
+    max-width: none !important;
+    height: 240px;
+    border-radius: 0 !important;
+  }
+
+  /* annotation bar — 2-col on mobile */
+  .screenshot-annotation-bar {
+    flex-wrap: wrap;
+  }
+
+  .screenshot-annotation-bar > div {
+    flex: 1 1 48%;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* ── BLOG PREVIEW SECTION ── */
+  /* Blog grid → single column */
+  div[style*="grid-template-columns: repeat(2, 1fr)"] {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  /* ── CREDIBILITY BLOCK ── */
+  div[style*="display:flex;gap:48px"] {
+    flex-direction: column !important;
+    gap: 16px !important;
+    padding: 28px 20px !important;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 32px 20px 28px;
+  }
+
+  .footer-grid {
+    flex-direction: column;
+    gap: 28px;
+    margin-bottom: 24px;
+  }
+
+  .footer-col ul { gap: 10px; }
+
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding-top: 20px;
+  }
+
+  .footer-links-bottom {
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+}
+
+/* ── Slightly larger phones / small tablets ── */
+@media (min-width: 480px) and (max-width: 768px) {
+  .hero-h1 { font-size: 40px; }
+  .hero-cta-row { flex-direction: row; align-items: center; }
+  .btn-secondary { min-height: auto; }
+}
+
+/* ── Prevent hero grid overflow on medium screens ── */
+@media (max-width: 900px) and (min-width: 769px) {
+  .hero-inner {
+    grid-template-columns: 360px 1fr;
+    gap: 40px;
+    padding: 48px 32px 64px;
+  }
+
+  .features-grid { grid-template-columns: repeat(2, 1fr); }
+
+  .footer-grid { gap: 28px; }
+
+  .section { padding: 72px 32px; }
+  .section-full .section-inner { padding: 0 32px; }
+
+  .download-inner { gap: 40px; }
+}
 </style>
 </head>
 <body>
@@ -1701,7 +2047,7 @@ footer {
 
       <!-- screenshot with annotation strip -->
       <div style="position:relative;">
-        <div style="
+        <div class="real-app-screenshot-wrap" style="
           border: 1px solid var(--border);
           border-radius: 6px;
           overflow: hidden;
@@ -1718,7 +2064,7 @@ footer {
         </div>
 
         <!-- annotation bar below screenshot -->
-        <div style="display:flex;gap:0;margin-top:0;border:1px solid var(--border);border-top:none;border-radius:0 0 6px 6px;background:var(--bg3);overflow:hidden;">
+        <div class="screenshot-annotation-bar" style="display:flex;gap:0;margin-top:0;border:1px solid var(--border);border-top:none;border-radius:0 0 6px 6px;background:var(--bg3);overflow:hidden;">
           <div style="flex:1;padding:9px 16px;border-right:1px solid var(--border);">
             <span style="font-family:var(--f-mono);font-size:9px;color:var(--accent);letter-spacing:0.08em;">QUEUE</span>
             <span style="font-family:var(--f-mono);font-size:10px;color:var(--text3);margin-left:8px;">Batch · pause · resume</span>
@@ -1880,7 +2226,7 @@ footer {
 
 <!-- ─── FAQ ─── -->
 <section class="section" id="faq">
-  <div style="display:grid;grid-template-columns:240px 1fr;gap:64px;align-items:start;">
+  <div class="faq-grid" style="display:grid;grid-template-columns:240px 1fr;gap:64px;align-items:start;">
     <div>
       <div class="section-eyebrow">FAQ</div>
       <h2 class="section-h2" style="font-size:18px;">Common questions from editors.</h2>
