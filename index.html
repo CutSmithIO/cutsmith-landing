@@ -1880,14 +1880,37 @@ function toggleFaq(el) {
   if (!isOpen) item.classList.add('open');
 }
 
-// Email submit
-function submitEmail() {
-  const v = document.getElementById('beta-email').value;
+// Email submit — Formspree
+async function submitEmail() {
+  const input = document.getElementById('beta-email');
+  const btn = document.querySelector('.inline-submit');
+  const v = input.value.trim();
   if (!v || !v.includes('@')) return;
-  document.getElementById('beta-email').value = '';
-  const t = document.getElementById('toast');
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 4000);
+
+  btn.textContent = 'Sending…';
+  btn.disabled = true;
+
+  try {
+    const res = await fetch('https://formspree.io/f/xlgazyok', {
+      method: 'POST',
+      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: v })
+    });
+
+    if (res.ok) {
+      input.value = '';
+      btn.textContent = 'Done ✓';
+      const t = document.getElementById('toast');
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 4000);
+    } else {
+      btn.textContent = 'Try again';
+      btn.disabled = false;
+    }
+  } catch (e) {
+    btn.textContent = 'Try again';
+    btn.disabled = false;
+  }
 }
 
 document.getElementById('beta-email').addEventListener('keydown', e => {
