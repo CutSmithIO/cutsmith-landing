@@ -375,13 +375,13 @@ nav {
 /* ─────────────────────────────────────────
    REAL APP UI — CutSmith Subtitle Studio
 ───────────────────────────────────────── */
-.cs-root{font-family:var(--f-mono);font-size:12px;background:#1a1a1a;border-radius:8px;overflow:hidden;border:1px solid #2e2e2e;display:flex;flex-direction:column;height:500px;color:#d4d4d4;box-shadow:0 32px 80px rgba(0,0,0,0.55)}
+.cs-root{font-family:var(--f-mono);font-size:12px;background:#1a1a1a;border-radius:8px;overflow:hidden;border:1px solid #2e2e2e;display:flex;flex-direction:column;height:560px;color:#d4d4d4;box-shadow:0 32px 80px rgba(0,0,0,0.55)}
 .cs-titlebar{height:36px;background:#222;display:flex;align-items:center;padding:0 14px;gap:8px;border-bottom:1px solid #2a2a2a;flex-shrink:0}
 .cs-dot{width:11px;height:11px;border-radius:50%}
 .cs-dot-r{background:#ff5f57}.cs-dot-y{background:#febc2e}.cs-dot-g{background:#28c840}
 .cs-wintitle{flex:1;text-align:center;font-size:11px;color:#4a4a4a}
 .cs-body{display:flex;flex:1;overflow:hidden}
-.cs-left{width:195px;flex-shrink:0;background:#1e1e1e;border-right:1px solid #2a2a2a;display:flex;flex-direction:column;overflow-y:auto}
+.cs-left{width:195px;flex-shrink:0;background:#1e1e1e;border-right:1px solid #2a2a2a;display:flex;flex-direction:column;overflow-y:auto;scrollbar-width:none}
 .cs-appname{padding:12px 12px 2px;font-size:13px;font-weight:600;color:#ddd;font-family:var(--f-sans);letter-spacing:-0.01em}
 .cs-tagline{padding:0 12px 2px;font-size:9px;color:#4a4a4a;letter-spacing:0.04em}
 .cs-subtitle-tagline{padding:0 12px 10px;font-size:9px;color:#444}
@@ -397,7 +397,7 @@ nav {
 .cs-queue-header{display:flex;align-items:center;justify-content:space-between;padding:8px 12px 4px;font-size:9px;color:#444;letter-spacing:0.12em;border-top:1px solid #272727}
 .cs-queue-count{color:#4a4a4a;font-size:9px;letter-spacing:0}
 .cs-btn-run{margin:3px 10px;background:#242424;border:1px solid #2e2e2e;border-radius:4px;color:#666;padding:5px 10px;font-size:10px;cursor:pointer;text-align:center}
-.cs-progress-bar{margin:2px 10px 3px;height:3px;background:#222;border-radius:2px;overflow:hidden}
+.cs-progress-bar{margin:2px 10px 3px;height:3px;background:#222;border-radius:2px;overflow:hidden;flex-shrink:0}
 .cs-progress-fill{height:100%;width:100%;background:#c8a84b;border-radius:2px}
 .cs-btn-clear{margin:0 10px 6px;background:transparent;border:1px solid #272727;border-radius:4px;color:#4a4a4a;padding:4px 10px;font-size:10px;cursor:pointer;text-align:center}
 .cs-queue-item{margin:2px 8px 8px;padding:7px 9px;background:#212121;border-radius:4px;border:1px solid #2a2a2a}
@@ -410,7 +410,10 @@ nav {
 .cs-mid-title{font-size:9px;letter-spacing:0.12em;color:#444}
 .cs-seg-count{font-size:9px;color:#444}
 .cs-search{margin:6px 10px;background:#202020;border:1px solid #2a2a2a;border-radius:3px;padding:5px 9px;font-size:10px;color:#4a4a4a;font-family:var(--f-mono);flex-shrink:0}
-.cs-sub-list{flex:1;overflow-y:auto}
+.cs-sub-list{flex:1;overflow-y:auto;scrollbar-width:thin;scrollbar-color:#2a2a2a #1c1c1c}
+.cs-sub-list::-webkit-scrollbar{width:4px}
+.cs-sub-list::-webkit-scrollbar-track{background:#1c1c1c}
+.cs-sub-list::-webkit-scrollbar-thumb{background:#2a2a2a;border-radius:2px}
 .cs-sub-row{display:flex;border-bottom:1px solid #202020;cursor:pointer}
 .cs-sub-row:hover{background:#202020}
 .cs-sub-row.active{background:#192318;border-left:2px solid #3a7a50}
@@ -451,6 +454,23 @@ nav {
 .cs-log-body{flex:1;overflow-y:auto;padding:3px 12px}
 .cs-log-line{font-size:9px;color:#3a3a3a;line-height:1.9;white-space:nowrap}
 .cs-ts{color:#2e2e2e}.cs-info{color:#2e6e48}
+.cs-left::-webkit-scrollbar{width:0;display:none}
+.cs-left::-webkit-scrollbar-track{background:#1e1e1e}
+.cs-left::-webkit-scrollbar-thumb{background:#2a2a2a;border-radius:2px}
+.cs-checkbox-row{padding:5px 12px;gap:6px}
+.cs-cb{width:13px;height:13px;background:#7b6cdf;border-radius:2px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cs-cb-check{color:white;font-size:9px;line-height:1}
+.cs-cb-label{font-size:10px;color:#ccc;flex:1}
+.cs-cb-sub{font-size:9px;color:#4a4a4a;margin-left:auto}
+.cs-export-row{display:flex;margin:2px 10px 0;gap:0;flex-shrink:0}
+.cs-er-btn{flex:1;background:#202020;border:1px solid #272727;color:#666;padding:5px;font-size:10px;font-family:var(--f-mono);cursor:pointer;text-align:center}
+.cs-er-btn:first-child{border-radius:3px 0 0 3px}
+.cs-er-btn:last-child{border-radius:0 3px 3px 0;border-left:none}
+.cs-er-full{border-radius:3px;width:100%}
+.cs-right-meta{padding:4px 12px 0;display:flex;align-items:center;gap:5px;font-size:9px;flex-shrink:0}
+.cs-meta-dur{color:#666;font-family:var(--f-mono)}
+.cs-meta-sep{color:#3a3a3a}
+.cs-meta-ch{color:#555;font-family:var(--f-mono)}
 
 
 /* ─────────────────────────────────────────
@@ -1342,19 +1362,22 @@ footer {
       </div>
     </div>
 
-    <!-- Real app UI — CutSmith Subtitle Studio -->
+    <!-- Real app UI — CutSmith Subtitle Studio (v2 — matches real app) -->
     <div class="cs-root">
       <div class="cs-titlebar">
         <div class="cs-dot cs-dot-r"></div>
         <div class="cs-dot cs-dot-y"></div>
         <div class="cs-dot cs-dot-g"></div>
-        <div class="cs-wintitle">CutSmith Subtitle Studio</div>
+        <div class="cs-wintitle">CutSmith Subtitle Studio Community</div>
       </div>
       <div class="cs-body">
+
+        <!-- LEFT -->
         <div class="cs-left">
           <div class="cs-appname">CutSmith Subtitle Studio</div>
-          <div class="cs-tagline">Free Version</div>
+          <div class="cs-tagline">Community Edition</div>
           <div class="cs-subtitle-tagline">Local AI subtitles · offline · no subscription</div>
+
           <div class="cs-section-label">SOURCE</div>
           <div class="cs-dropzone">
             <span class="cs-drop-icon">↑</span>
@@ -1362,6 +1385,7 @@ footer {
             <div class="cs-drop-formats">MP4 · MOV · MP3 · WAV<br>or click 'Add Files'</div>
           </div>
           <div class="cs-btn">+ Add Files…</div>
+
           <div class="cs-section-label">MODEL</div>
           <div class="cs-field-row">
             <span class="cs-field-label">Model</span>
@@ -1371,15 +1395,27 @@ footer {
             <span class="cs-field-label">Language</span>
             <select class="cs-field-val"><option>Auto-detect</option><option>English</option><option>Chinese</option></select>
           </div>
+          <div class="cs-field-row cs-checkbox-row">
+            <div class="cs-cb"><span class="cs-cb-check">✓</span></div>
+            <span class="cs-cb-label">Smart Repair</span>
+            <span class="cs-cb-sub">base → small fallback</span>
+          </div>
+          <div class="cs-field-row">
+            <span class="cs-field-label">Chinese Output</span>
+            <select class="cs-field-val"><option>Simplified</option><option>Traditional</option></select>
+          </div>
+
           <div class="cs-queue-header"><span>QUEUE</span><span class="cs-queue-count">1 / 1</span></div>
           <div class="cs-btn-run">▶ Run Queue</div>
           <div class="cs-progress-bar"><div class="cs-progress-fill"></div></div>
           <div class="cs-btn-clear">Clear Queue</div>
           <div class="cs-queue-item">
-            <div class="cs-qi-top"><span class="cs-qi-check">✓</span><span class="cs-qi-name">bentley_vlog_v1 字幕下</span></div>
-            <div class="cs-qi-sub">Completed · bentley_vlog_v1字幕下_008.sr</div>
+            <div class="cs-qi-top"><span class="cs-qi-check">✓</span><span class="cs-qi-name">Bentley_vlog_version1</span></div>
+            <div class="cs-qi-sub">Completed · Bentley_vlog_version1.srt</div>
           </div>
         </div>
+
+        <!-- MIDDLE -->
         <div class="cs-mid">
           <div class="cs-mid-header">
             <span class="cs-mid-title">SUBTITLES</span>
@@ -1389,9 +1425,9 @@ footer {
           <div class="cs-sub-list">
             <div class="cs-sub-row"><div class="cs-tc-wrap"><div class="cs-tc in">0:00 → 0:01</div></div><div class="cs-text-wrap"><div class="cs-sub-text">My name's Greg Williams,</div></div></div>
             <div class="cs-sub-row"><div class="cs-tc-wrap"><div class="cs-tc in">0:01 → 0:04</div></div><div class="cs-text-wrap"><div class="cs-sub-text">I'm a photographer and together with my</div></div></div>
-            <div class="cs-sub-row"><div class="cs-tc-wrap"><div class="cs-tc in">0:04 → 0:07</div></div><div class="cs-text-wrap"><div class="cs-sub-text">Ikazawa, I am the co-creative</div></div></div>
+            <div class="cs-sub-row active"><div class="cs-tc-wrap"><div class="cs-tc in">0:04 → 0:07</div></div><div class="cs-text-wrap"><div class="cs-sub-text">Ikazawa, I am the co-creative</div></div></div>
             <div class="cs-sub-row"><div class="cs-tc-wrap"><div class="cs-tc in">0:07 → 0:09</div></div><div class="cs-text-wrap"><div class="cs-sub-text">director of Bentley Motors.</div></div></div>
-            <div class="cs-sub-row active"><div class="cs-tc-wrap"><div class="cs-tc in">0:09 → 0:12</div></div><div class="cs-text-wrap"><div class="cs-sub-text">We are for the first time really shooting</div></div></div>
+            <div class="cs-sub-row"><div class="cs-tc-wrap"><div class="cs-tc in">0:09 → 0:12</div></div><div class="cs-text-wrap"><div class="cs-sub-text">We are for the first time really shooting</div></div></div>
             <div class="cs-sub-row"><div class="cs-tc-wrap"><div class="cs-tc in">0:12 → 0:13</div></div><div class="cs-text-wrap"><div class="cs-sub-text">for Bentley in this</div></div></div>
             <div class="cs-sub-row"><div class="cs-tc-wrap"><div class="cs-tc in">0:13 → 0:14</div></div><div class="cs-text-wrap"><div class="cs-sub-text">new role,</div></div></div>
             <div class="cs-sub-row"><div class="cs-tc-wrap"><div class="cs-tc in">0:14 → 0:17</div></div><div class="cs-text-wrap"><div class="cs-sub-text">starting to take pictures and starting to</div></div></div>
@@ -1400,30 +1436,44 @@ footer {
           </div>
           <div class="cs-batch-done">Batch complete: 1 done</div>
           <div class="cs-export-btn">Export SRT</div>
+          <div class="cs-export-row">
+            <button class="cs-er-btn">TXT Plain</button>
+            <button class="cs-er-btn">TXT + Time</button>
+          </div>
+          <div class="cs-export-row">
+            <button class="cs-er-btn cs-er-full">TXT One Line</button>
+          </div>
           <div class="cs-save-load">
             <button class="cs-sl-btn">Save Project</button>
             <button class="cs-sl-btn">Load Project</button>
           </div>
           <div class="cs-clr-btn">Clear All Translations</div>
         </div>
+
+        <!-- RIGHT -->
         <div class="cs-right">
           <div class="cs-right-header">
-            <span class="cs-seg-title">Segment 5 / 131</span>
+            <span class="cs-seg-title">Segment 3 / 138</span>
             <div class="cs-seg-tc">
-              <span class="cs-tc-badge">00:00:09,286</span>
+              <span class="cs-tc-badge">00:00:04,930</span>
               <span class="cs-tc-arrow">→</span>
-              <span class="cs-tc-badge">00:00:12,453</span>
+              <span class="cs-tc-badge">00:00:07,200</span>
             </div>
+          </div>
+          <div class="cs-right-meta">
+            <span class="cs-meta-dur">2.27 s</span>
+            <span class="cs-meta-sep">·</span>
+            <span class="cs-meta-ch">mono</span>
           </div>
           <div class="cs-right-body">
             <div>
               <div class="cs-field-section-label">ORIGINAL TEXT</div>
-              <textarea class="cs-textarea" readonly>We are for the first time really shooting</textarea>
+              <textarea class="cs-textarea" readonly>Ikazawa, I am the co-creative</textarea>
             </div>
             <div>
               <div class="cs-translation-hint">
                 <span>TRANSLATION</span>
-                <span style="color:#444;">· optional · leave blank for monolingual export</span>
+                <span style="color:#3a3a3a;">· optional · leave blank for monolingual export</span>
               </div>
               <textarea class="cs-textarea translation" placeholder="Translation / second language line…"></textarea>
             </div>
@@ -1437,15 +1487,16 @@ footer {
           </div>
         </div>
       </div>
+
+      <!-- LOG -->
       <div class="cs-log">
         <div class="cs-log-header">
           <span class="cs-log-label">LOG</span>
+          <span style="font-size:9px;color:#3a3a3a;">15:32:09</span>
           <span class="cs-log-clear">Clear</span>
         </div>
         <div class="cs-log-body">
-          <div class="cs-log-line"><span class="cs-ts">02:15:47</span> [<span class="cs-info">INFO</span>] Files dropped: 1 added, 0 skipped</div>
-          <div class="cs-log-line"><span class="cs-ts">02:15:58</span> [<span class="cs-info">INFO</span>] Batch started: 1 jobs</div>
-          <div class="cs-log-line"><span class="cs-ts">02:15:58</span> [<span class="cs-info">INFO</span>] Batch job 1/1: bentley_vlog_v1 字幕下.mp4</div>
+          <div class="cs-log-line"><span class="cs-ts">15:32:09</span> [<span class="cs-info">INFO</span>] Batch complete: 1 done, 0 failed</div>
         </div>
       </div>
     </div>
